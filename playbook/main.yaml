@@ -1,0 +1,21 @@
+---
+- name: Convert from CentOS 8 to CentOS 8 Stream
+  hosts: all
+
+  tasks:
+    - name: Install CentOS Stream Release
+      dnf:
+        name:
+          - centos-release-stream
+        state: latest
+
+    - name: run dnf upgrade
+      dnf:
+        name: "*"
+        state: latest
+
+    - name: clean up dnf
+      shell: dnf -y clean all
+
+    - name: reboot
+      reboot:
